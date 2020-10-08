@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "d7b75b8e-3e1f-4721-af9c-67ab9d7d9fe0",
+		"name": "[Assaad Chedid]360vuz - Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bad0e46d-4e48-4c2a-ad12-906098c0aa1e",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"\r",
+							"var jwt = ('jwt' in data) ? data.jwt : null;\r",
+							"var jwtPayload = ('payload' in data)? data.payload : null;\r",
+							"\r",
+							"postman.setEnvironmentVariable('JWT_TOKEN', jwt);\r",
+							"postman.setEnvironmentVariable('JWT_PAYLOAD', JSON.stringify(jwtPayload));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/360vuz/user/generateJWT/03194024",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"360vuz",
+						"user",
+						"generateJWT",
+						"03194024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Server] Validate Subscription",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/360vuz/server/validateSubscription",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"360vuz",
+						"server",
+						"validateSubscription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[User] Subscribe",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{JWT_PAYLOAD}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/360vuz/user/subscribe/{{JWT_TOKEN}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"360vuz",
+						"user",
+						"subscribe",
+						"{{JWT_TOKEN}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[User] Unsubscribe",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{JWT_PAYLOAD}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/360vuz/user/unsubscribe/{{JWT_TOKEN}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"360vuz",
+						"user",
+						"unsubscribe",
+						"{{JWT_TOKEN}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
